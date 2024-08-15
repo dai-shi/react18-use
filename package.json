@@ -1,0 +1,93 @@
+{
+  "name": "react18-use",
+  "description": "React 19 use hook shim",
+  "version": "0.1.0",
+  "type": "module",
+  "author": "Daishi Kato",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dai-shi/react18-use.git"
+  },
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": {
+        "types": "./dist/cjs/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./immer": {
+      "require": {
+        "types": "./dist/cjs/immer/index.d.ts",
+        "default": "./dist/cjs/immer/index.js"
+      },
+      "default": {
+        "types": "./dist/immer/index.d.ts",
+        "default": "./dist/immer/index.js"
+      }
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "src",
+    "dist"
+  ],
+  "packageManager": "pnpm@8.15.0",
+  "scripts": {
+    "compile": "rm -rf dist && pnpm run '/^compile:.*/'",
+    "compile:esm": "tsc -p tsconfig.esm.json",
+    "compile:cjs": "tsc -p tsconfig.cjs.json && echo '{\"type\":\"commonjs\"}' > dist/cjs/package.json",
+    "test": "pnpm run '/^test:.*/'",
+    "test:format": "prettier -c .",
+    "test:lint": "eslint .",
+    "test:types": "tsc -p . --noEmit",
+    "test:types:examples": "tsc -p examples --noEmit",
+    "test:spec": "vitest run",
+    "examples:01_counter": "DIR=01_counter vite"
+  },
+  "keywords": [
+    "react",
+    "use",
+    "hook"
+  ],
+  "license": "MIT",
+  "prettier": {
+    "singleQuote": true
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "6.4.8",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.3.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.1.0",
+    "@typescript-eslint/parser": "^8.1.0",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "happy-dom": "^14.12.3",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react18-use": "link:.",
+    "ts-expect": "^1.3.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0",
+    "vitest": "2.0.5"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  }
+}

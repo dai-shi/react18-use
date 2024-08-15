@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es2018",
+    "esModuleInterop": true,
+    "module": "nodenext",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "verbatimModuleSyntax": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "react18-use": ["./src/index.js"]
+    }
+  },
+  "exclude": ["dist", "examples"]
+}
