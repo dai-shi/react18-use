@@ -2,33 +2,42 @@
 
 import ReactExports from 'react';
 
-export const use =
-  ReactExports.use ||
-  (<T>(
-    promise: PromiseLike<T> & {
+type Usable<T> =
+  | (PromiseLike<T> & {
       status?: 'pending' | 'fulfilled' | 'rejected';
       value?: T;
       reason?: unknown;
-    },
-  ): T => {
-    if (promise.status === 'pending') {
-      throw promise;
-    } else if (promise.status === 'fulfilled') {
-      return promise.value as T;
-    } else if (promise.status === 'rejected') {
-      throw promise.reason;
+    })
+  | React.Context<T>;
+
+function isContext<T>(usable: Usable<T>): usable is React.Context<T> {
+  return '_currentValue' in usable && '$$typeof' in usable;
+}
+
+export const use =
+  ReactExports.use ||
+  (<T>(usable: Usable<T>): T => {
+    if (isContext(usable)) {
+      return ReactExports.useContext(usable);
+    }
+    if (usable.status === 'pending') {
+      throw usable;
+    } else if (usable.status === 'fulfilled') {
+      return usable.value as T;
+    } else if (usable.status === 'rejected') {
+      throw usable.reason;
     } else {
-      promise.status = 'pending';
-      promise.then(
+      usable.status = 'pending';
+      usable.then(
         (v) => {
-          promise.status = 'fulfilled';
-          promise.value = v;
+          usable.status = 'fulfilled';
+          usable.value = v;
         },
         (e) => {
-          promise.status = 'rejected';
-          promise.reason = e;
+          usable.status = 'rejected';
+          usable.reason = e;
         },
       );
-      throw promise;
+      throw usable;
     }
   });
