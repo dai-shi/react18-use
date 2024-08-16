@@ -52,7 +52,7 @@ const App = () => {
 
 ## Limitations
 
-- Only supports promises. (Adding support for contexts might not be too difficult.)
+- Only supports promises and contexts.
 - It might not work the same as React 19.
 
 ## Examples

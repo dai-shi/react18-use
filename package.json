@@ -1,7 +1,7 @@
 {
   "name": "react18-use",
   "description": "React 19 use hook shim",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "author": "Daishi Kato",
   "repository": {
