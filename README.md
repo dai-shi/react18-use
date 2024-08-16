@@ -72,3 +72,4 @@ You can also try them directly:
 ## Tweets
 
 - https://x.com/dai_shi/status/1823896762542928373
+- https://x.com/dai_shi/status/1824424680721354980
