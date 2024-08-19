@@ -54,6 +54,7 @@ const App = () => {
 
 - Only supports promises and contexts.
 - It might not work the same as React 19.
+- useMemo with use(Context) is highly experimental and not for production.
 
 ## Examples
 
@@ -68,6 +69,7 @@ and open <http://localhost:8080> in your web browser.
 
 You can also try them directly:
 [01](https://stackblitz.com/github/dai-shi/react18-use/tree/main/examples/01_counter)
+[02](https://stackblitz.com/github/dai-shi/react18-use/tree/main/examples/02_context)
 
 ## Tweets
 
