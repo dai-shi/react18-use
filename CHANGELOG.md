@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-08-19
+
 ### Added
 
 - experimental: useMemo with use(Context) #3
