@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- experimental: useMemo with use(Context) #3
+
 ## [0.2.0] - 2024-08-16
 
 ### Added
