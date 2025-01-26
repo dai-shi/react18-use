@@ -26,7 +26,6 @@ export const use =
       return override(usable);
     }
     if (isContext(usable)) {
-      // eslint-disable-next-line import/no-named-as-default-member
       return ReactExports.useContext(usable);
     }
     if (usable.status === 'pending') {

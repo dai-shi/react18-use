@@ -40,8 +40,9 @@ export const createContext: typeof createContextOrig = (<T,>(
   const context = createContextOrig(createStore(defaultValue));
   const ProviderOrig = context.Provider;
   const Provider = ({ value, children }: { value: T; children: ReactNode }) => {
-    const storeRef = useRef<ReturnType<typeof createStore<T>>>();
+    const storeRef = useRef<ReturnType<typeof createStore<T>>>(undefined);
     if (!storeRef.current) {
+      // eslint-disable-next-line react-compiler/react-compiler
       storeRef.current = createStore(value);
     }
     const store = storeRef.current;
@@ -82,6 +83,7 @@ export const useMemo = <T,>(fn: () => T, _deps?: []) => {
   const ref = useRef<[Subscribe, typeof storeSet]>([() => () => {}, new Set()]);
   try {
     setOverride((usable) => {
+      // eslint-disable-next-line react-compiler/react-compiler
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const store = useContextOrig(usable as any);
       if (isStore(store)) {
