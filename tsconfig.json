@@ -12,7 +12,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "react18-use": ["./src/index.js"]
+      "react18-use": ["./src/index.ts"]
     }
   },
   "exclude": ["dist", "examples"]
