@@ -11,6 +11,8 @@ React 19 use hook shim
 
 While waiting for React 19, I still want to release a library that depends on React 19 use hook. Hense, this shim.
 
+It also provides useMemo + use(Context) experimental feature, which we hope to have in React 19. (See: https://x.com/TkDodo/status/1741193371283026422 )
+
 ## Install
 
 ```bash
@@ -18,6 +20,10 @@ npm install react18-use
 ```
 
 ## Usage
+
+### Promise
+
+It works both in React 18 and React 19. However, you don't need it if you are using React 19.
 
 ```tsx
 import { Suspense, useState } from 'react';
@@ -50,11 +56,53 @@ const App = () => {
 };
 ```
 
+### Context
+
+It works both in React 18 and React 19.
+
+```tsx
+import { useState } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, use, useMemo } from 'react18-use';
+
+const MyContext = createContext({ foo: '', count: 0 });
+
+const Component = () => {
+  const foo = useMemo(() => {
+    const { foo } = use(MyContext);
+    return foo;
+  }, []);
+  return (
+    <p>
+      Foo: {foo} ({Math.random()})
+    </p>
+  );
+};
+
+const MyProvider = ({ children }: { children: ReactNode }) => {
+  const [count, setCount] = useState(1);
+  return (
+    <div>
+      <button onClick={() => setCount((c) => c + 1)}>{count}</button>
+      <MyContext.Provider value={{ foo: 'React', count }}>
+        {children}
+      </MyContext.Provider>
+    </div>
+  );
+};
+
+const App = () => (
+  <MyProvider>
+    <Component />
+  </MyProvider>
+);
+```
+
 ## Limitations
 
 - Only supports promises and contexts.
-- It might not work the same as React 19.
-- useMemo with use(Context) is highly experimental and not for production.
+- It might not work exactly the same as React 19.
+- useMemo with use(Context) is experimental (feedback welcome).
 
 ## Examples
 

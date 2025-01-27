@@ -4,6 +4,18 @@ import { createContext, use, useMemo } from 'react18-use';
 
 const MyContext = createContext({ foo: '', count: 0 });
 
+const Counter = () => {
+  const count = useMemo(() => {
+    const { count } = use(MyContext);
+    return count;
+  }, []);
+  return (
+    <p>
+      Count: {count} ({Math.random()})
+    </p>
+  );
+};
+
 const Component = () => {
   const foo = useMemo(() => {
     const { foo } = use(MyContext);
@@ -31,6 +43,7 @@ const MyProvider = ({ children }: { children: ReactNode }) => {
 const App = () => (
   <MyProvider>
     <Component />
+    <Counter />
   </MyProvider>
 );
 
