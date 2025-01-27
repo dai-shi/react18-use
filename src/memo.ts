@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { setOverride } from './use.js';
-import { getOriginalContext } from './context.js';
+import { getStoreContext } from './context.js';
 import type { Store } from './context.js';
 
 // LIMITATION:
@@ -51,13 +51,13 @@ export const useMemo = <T>(fn: () => T, deps: readonly unknown[]) => {
   return React.useSyncExternalStore(cache.subscribe, () => {
     try {
       setOverride((usable) => {
-        const originalContext = getOriginalContext(usable);
-        if (!originalContext) {
+        const storeContext = getStoreContext(usable);
+        if (!storeContext) {
           throw new Error(
             'use must be used with createContext from react18-use',
           );
         }
-        const store = (React.use || React.useContext)(originalContext);
+        const store = (React.use || React.useContext)(storeContext);
         cache.addStore(store);
         return store.getValue() as never;
       });

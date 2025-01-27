@@ -18,16 +18,13 @@ const createStore = <T>(defaultValue: T) => {
 
 export type Store<T> = ReturnType<typeof createStore<T>>;
 
-const ORIGINAL_CONTEXT = Symbol();
+const STORE_CONTEXT = Symbol();
 
-export const getOriginalContext = <T>(context: unknown) => {
-  const originalContext = (
-    context as { [ORIGINAL_CONTEXT]?: Context<Store<T>> }
-  )[ORIGINAL_CONTEXT];
-  if (!originalContext) {
-    return null;
-  }
-  return originalContext;
+export const getStoreContext = <T>(context: unknown) => {
+  const storeContext = (context as { [STORE_CONTEXT]?: Context<Store<T>> })[
+    STORE_CONTEXT
+  ];
+  return storeContext;
 };
 
 export const createContext: typeof React.createContext = (<T>(
@@ -48,7 +45,7 @@ export const createContext: typeof React.createContext = (<T>(
     return React.createElement(context.Provider, { value: store }, children);
   };
   Provider.Provider = Provider;
-  Provider[ORIGINAL_CONTEXT] = context;
+  Provider[STORE_CONTEXT] = context;
   return Provider;
 }) as never;
 
@@ -57,12 +54,12 @@ export const createContext: typeof React.createContext = (<T>(
 export const useContext: typeof React.useContext = ((
   context: ReturnType<typeof createContext>,
 ) => {
-  const originalContext = getOriginalContext(context);
-  if (!originalContext) {
+  const storeContext = getStoreContext(context);
+  if (!storeContext) {
     throw new Error(
       'useContext must be used with createContext from react18-use',
     );
   }
-  const store = React.useContext(originalContext);
+  const store = React.useContext(storeContext);
   return React.useSyncExternalStore(store.subscribe, store.getValue);
 }) as never;

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { getOriginalContext } from './context.js';
+import { getStoreContext } from './context.js';
 
 type Usable<T> =
   | (PromiseLike<T> & {
@@ -26,9 +26,9 @@ export const use = React.use
       if (override) {
         return override(usable);
       }
-      const originalContext = getOriginalContext<T>(usable);
-      if (originalContext) {
-        const store = React.use(originalContext);
+      const storeContext = getStoreContext<T>(usable);
+      if (storeContext) {
+        const store = React.use(storeContext);
         return React.useSyncExternalStore(store.subscribe, store.getValue);
       }
       return React.use(usable);
@@ -37,9 +37,9 @@ export const use = React.use
       if (override) {
         return override(usable);
       }
-      const originalContext = getOriginalContext<T>(usable);
-      if (originalContext) {
-        const store = React.useContext(originalContext);
+      const storeContext = getStoreContext<T>(usable);
+      if (storeContext) {
+        const store = React.useContext(storeContext);
         return React.useSyncExternalStore(store.subscribe, store.getValue);
       }
       if (isContext(usable)) {
