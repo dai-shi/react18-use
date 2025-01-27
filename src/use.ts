@@ -1,5 +1,3 @@
-/// <reference types="react/experimental" />
-
 import React from 'react';
 
 import { getStoreContext } from './context.js';
