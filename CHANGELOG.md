@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- fix: extra rerenders with useMemo+use usage #7
+
 ## [0.4.0] - 2025-01-27
 
 ### Added
