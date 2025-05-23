@@ -50,7 +50,7 @@ export const useMemo = <T>(fn: () => T, deps: readonly unknown[]) => {
       };
       return { subscribe, getStore };
     },
-    // eslint-disable-next-line react-compiler/react-compiler
+    // eslint-disable-next-line react-hooks/react-compiler
     // eslint-disable-next-line react-hooks/exhaustive-deps
     deps,
   );

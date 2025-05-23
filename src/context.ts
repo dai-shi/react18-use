@@ -33,12 +33,10 @@ export const createContext: typeof React.createContext = (<T>(
   const context = React.createContext(createStore(defaultValue));
   const Provider = ({ value, children }: { value: T; children: ReactNode }) => {
     const storeRef = React.useRef<Store<T>>(undefined);
-    /* eslint-disable react-compiler/react-compiler */
     if (!storeRef.current) {
       storeRef.current = createStore(value);
     }
     const store = storeRef.current;
-    /* eslint-enable react-compiler/react-compiler */
     React.useEffect(() => {
       store.setValue(value);
     });
